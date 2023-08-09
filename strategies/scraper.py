@@ -11,11 +11,8 @@ import utils
 def run(exchange, symbol, marginCoin, debug_mode):
     client = Client(exchange['ak'], exchange['sk'], exchange['passphrase'])
 
-    # 取消所有现有订单，有待商榷
-    if not debug_mode:
-        orders = client.mix_get_plan_order_tpsl(symbol, isPlan='plan')['data']
-        if orders != []:
-            client.mix_cancel_all_trigger_orders('UMCBL', 'normal_plan')
+    orders = client.mix_get_plan_order_tpsl(symbol, isPlan='plan')['data']
+    # 初始化订单状态
 
     while True:
         try:
